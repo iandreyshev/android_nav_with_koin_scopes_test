@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_country_movies"
+    app:startDestination="@id/countryMoviesFragment">
+    <fragment
+        android:id="@+id/countryMoviesFragment"
+        android:name="ru.iandreyshev.navwithkoinscopestest.ui.CountryMoviesFragment"
+        android:label="CountryMoviesFragment">
+        <action
+            android:id="@+id/action_countryMoviesFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+        <argument
+            android:name="country"
+            app:argType="ru.iandreyshev.navwithkoinscopestest.data.Country" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="ru.iandreyshev.navwithkoinscopestest.ui.MovieFragment"
+        android:label="MovieFragment">
+        <argument
+            android:name="movieId"
+            app:argType="ru.iandreyshev.navwithkoinscopestest.data.MovieId" />
+    </fragment>
+</navigation>
