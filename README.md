@@ -10,21 +10,12 @@
 * CountryMoviesFragment - список фильмов для страны
 * MovieFragment - описание фильма
 
+Упрощенная диаграмма приложения:
+
+  <img src="images/scope_diagram.png" height="400" >
+
 ### Скоупы
-Скоупы привязаны к графам навигации. ScopeID и Qualifier формируются с помошью идетификатора графа навигации. 
-
-```kt
-val Int.navQualifier: Qualifier
-    get() = named("FlowQualifier (NavGraphId@$this)")
-
-fun navQualifier(navGraphId: Int) =
-    navGraphId.navQualifier
-
-val Int.navScopeId: ScopeID
-    get() = "ScopeId (NavGraphId@${this})"
-```
-
-Скоупы хранятся внутри экземпляров класса NavGraphScopeHolder. NavGraphScopeHolder является ViewModel (из Jetpack). Это необходимо, чтобы получить экземпляр NavGraphScopeHolder привязанный к текущему графу навигации с помощью `navGraphViewModels()`. Скоупы могут быть получены из фрагмента с помощью базового класса BaseFragment. Внутри метода getScope достается экземпляр NavGraphScopeHolder и из него получается Scope.
+Мне хотелось привязать скоупы к графам навигации, чтобы делать для отдельных фич свои графы навигации, в которых будут свои скоупы. Скоупы хранятся внутри экземпляров класса NavGraphScopeHolder. NavGraphScopeHolder является ViewModel (из Jetpack). Это необходимо, чтобы получить экземпляр NavGraphScopeHolder привязанный к текущему графу навигации с помощью метода `navGraphViewModels()`. Скоупы могут быть получены из фрагмента с помощью базового класса BaseFragment. Внутри метода getScope достается экземпляр NavGraphScopeHolder и из него получается Scope.
 
 ```kt
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
@@ -41,5 +32,35 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
     }
 
 }
+
+class NavGraphScopeHolder(private val navGraphId: Int) : ViewModel() {
+
+    val scope: Scope by lazy {
+        KoinJavaComponent.getKoin().getOrCreateScope(
+            navGraphId.navScopeId,
+            navGraphId.navQualifier
+        )
+    }
+
+    override fun onCleared() {
+        scope.close()
+    }
+
+}
+
+```
+
+ ScopeID и Qualifier формируются с помошью идетификатора графа навигации. 
+
+```kt
+val Int.navQualifier: Qualifier
+    get() = named("FlowQualifier (NavGraphId@$this)")
+
+fun navQualifier(navGraphId: Int) =
+    navGraphId.navQualifier
+
+val Int.navScopeId: ScopeID
+    get() = "ScopeId (NavGraphId@${this})"
+
 
 ```
