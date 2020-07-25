@@ -12,7 +12,7 @@
 
 Упрощенная диаграмма приложения:
 
-  <img src="images/scope_diagram.png" height="400" >
+  <img src="images/scope_diagram.png" height="300" >
 
 ### Скоупы
 Мне хотелось привязать скоупы к графам навигации, чтобы делать для отдельных фич свои графы навигации, в которых будут свои скоупы. Скоупы хранятся внутри экземпляров класса NavGraphScopeHolder. NavGraphScopeHolder является ViewModel (из Jetpack). Это необходимо, чтобы получить экземпляр NavGraphScopeHolder привязанный к текущему графу навигации с помощью метода `navGraphViewModels()`. Скоупы могут быть получены из фрагмента с помощью базового класса BaseFragment. Внутри метода getScope достается экземпляр NavGraphScopeHolder и из него получается Scope.
