@@ -15,7 +15,11 @@
   <img src="images/scope_diagram.png" height="300" >
 
 ### Скоупы
-Мне хотелось привязать скоупы к графам навигации, чтобы делать для отдельных фич свои графы навигации, в которых будут свои скоупы. Скоупы хранятся внутри экземпляров класса NavGraphScopeHolder. NavGraphScopeHolder является ViewModel (из Jetpack). Это необходимо, чтобы получить экземпляр NavGraphScopeHolder привязанный к текущему графу навигации с помощью метода `navGraphViewModels()`. Скоупы могут быть получены из фрагмента с помощью базового класса BaseFragment. Внутри метода getScope достается экземпляр NavGraphScopeHolder и из него получается Scope.
+Мне хотелось привязать скоупы к графам навигации, чтобы делать для отдельных фич свои графы навигации, в которых будут свои скоупы.
+
+Для хранения скоупа написан класс `NavGraphScopeHolder`. `NavGraphScopeHolder` является `ViewModel` (из Jetpack). Это нужно, чтобы получить экземпляр `NavGraphScopeHolder` привязанный к текущему графу навигации (с помощью метода `navGraphViewModels()`). `NavGraphScopeHolder` создает скоуп внутри конструктора и закрывает его, когда вызывается метод `onCleared()`.
+
+Чтобы получать скоупы из фрагмента написан класс `BaseFragment` и метод `getScope(Int)`, внутри которого из экземпляра `NavGraphScopeHolder` достается Scope.
 
 ```kt
 abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
