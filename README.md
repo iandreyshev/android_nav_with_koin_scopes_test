@@ -1,6 +1,6 @@
 # Koin scope with navigation component
 
-В этом примере я попробовал привязать Koin scope к графам навигации из Jetpack Navigation Component
+В этом примере я попробовал привязать скоупы из Koin к графам навигации из Jetpack Navigation Component
 
 ### Что из себя представляет приложение
 Приложение со списком фильмов, которые отсортированые по странам
