@@ -23,3 +23,23 @@ fun navQualifier(navGraphId: Int) =
 val Int.navScopeId: ScopeID
     get() = "ScopeId (NavGraphId@${this})"
 ```
+
+Скоупы хранятся внутри экземпляров класса NavGraphScopeHolder. NavGraphScopeHolder является ViewModel (из Jetpack). Это необходимо, чтобы получить экземпляр NavGraphScopeHolder привязанный к текущему графу навигации с помощью `navGraphViewModels()`. Скоупы могут быть получены из фрагмента с помощью базового класса BaseFragment. Внутри метода getScope достается экземпляр NavGraphScopeHolder и из него получается Scope.
+
+```kt
+abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentLayoutId) {
+
+    protected fun getScope(@IdRes navGraphId: Int): Scope {
+        val holder by navGraphViewModels<NavGraphScopeHolder>(navGraphId) {
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T =
+                    NavGraphScopeHolder(navGraphId) as T
+            }
+        }
+
+        return holder.scope
+    }
+
+}
+
+```
