@@ -68,3 +68,22 @@ val Int.navScopeId: ScopeID
 
 
 ```
+
+### Пример описания зависимостей
+
+```kt
+startKoin {
+            modules(module {
+                scope(navQualifier(R.id.nav_graph_main)) {
+                    scoped<IMovieRepository> {
+                        MovieRepository()
+                    }
+                }
+                scope(navQualifier(R.id.nav_graph_country_movies)) {
+                    scoped<IMovieRepository> { parameters ->
+                        CountryMovieRepository(parameters.component1())
+                    }
+                }
+            })
+        }
+```
