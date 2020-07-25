@@ -3,13 +3,13 @@ package ru.iandreyshev.navwithkoinscopestest.ui
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
-import kotlinx.android.synthetic.main.fragment_movies.*
-import kotlinx.android.synthetic.main.fragment_movies.info
+import kotlinx.android.synthetic.main.fragment_countries.*
+import kotlinx.android.synthetic.main.fragment_countries.info
 import ru.iandreyshev.navwithkoinscopestest.R
 import ru.iandreyshev.navwithkoinscopestest.data.Country
 import ru.iandreyshev.navwithkoinscopestest.data.IMovieRepository
 
-class MoviesFragment : BaseFragment(R.layout.fragment_movies) {
+class CountriesFragment : BaseFragment(R.layout.fragment_countries) {
 
     private val mScope by lazy { getScope(R.id.nav_graph_main) }
     private val mRepository by lazy { mScope.get<IMovieRepository>() }
@@ -46,7 +46,7 @@ class MoviesFragment : BaseFragment(R.layout.fragment_movies) {
     }
 
     private fun navigateToMoviesOf(country: Country) {
-        MoviesFragmentDirections
+        CountriesFragmentDirections
             .actionMovieFragmentToNavMovie(country)
             .let(findNavController()::navigate)
     }

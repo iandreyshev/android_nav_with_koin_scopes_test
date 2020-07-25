@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="ru.iandreyshev.navwithkoinscopestest.ui.MoviesFragment"
+        android:name="ru.iandreyshev.navwithkoinscopestest.ui.CountriesFragment"
         android:label="MoviesFragment">
         <action
             android:id="@+id/action_movieFragment_to_nav_movie"

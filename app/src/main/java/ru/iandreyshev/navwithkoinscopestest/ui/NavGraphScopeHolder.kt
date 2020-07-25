@@ -37,5 +37,3 @@ fun navQualifier(navGraphId: Int) =
 val Int.navScopeId: ScopeID
     get() = "ScopeId (NavGraphId@${this})"
 
-fun navScopeId(navGraphId: Int) =
-    navGraphId.navScopeId
